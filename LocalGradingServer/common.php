@@ -38,6 +38,30 @@
 			runCmd($cmd);
 			$cmd2 = "tar-xvf /var/www/html/LAPS/tmp/$link -c PROBLEM";  //chek -c
 	
+		}
+		function submitAndGetNext($uname){
+			global $Server, $PracImage;
+			mylog("step 1. getting grade \n");
+			$grade = runCmd("python PROBLEM/grade.py");
+			mylog("step2. grade is $grade \n");
+
+			//submit
+
+			$url= $Server. "service.php?op=submitAndGetNextQ & uname=$uname&grade=$grade";  //chekc
+			mylog("step3. submit grade url : $url \n");
+			$link = submitRequest($url);
+			mylog("step4. link is $link \n");
+
+			//extract the link
+			mylog("download and extract \n");
+			downloadAndExtract($link);         //chekc
+			mylog("step 6. run setup.py \n");
+			
+
+			//execute the setup
+			runCmd("python PROBLEM/setup.py");
+			return "ok";
 		}	
 	}
+
 ?>
