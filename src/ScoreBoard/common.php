@@ -16,7 +16,3 @@ fuction submitCurrentAndGetNextQ($uname,$grade)
      $map = array[1->"prob1.tar",2->"prob2.tar",3->"prob3.tar"];
      return $map[$newqid];
 }
-if(1=2)
-{
-    $link = submitAndGetNextQ("stu1","10");
-    $arr = getScores(.........
