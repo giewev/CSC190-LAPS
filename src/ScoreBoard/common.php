@@ -1,5 +1,5 @@
-<? 
-fuction submitCurrentAndGetNextQ($uname,$grade)
+<?php
+function submitCurrentAndGetNext($uname,$grade)
 {
      $uname = secure($uname);
      $grade = secure($grade);
@@ -13,6 +13,7 @@ fuction submitCurrentAndGetNextQ($uname,$grade)
      $newqid = $qid+1;
      $q3 = "UPDATE tbl_users SET qid = $newqid 	WHERE uname = '$uname'";
 
-     $map = array[1->"prob1.tar",2->"prob2.tar",3->"prob3.tar"];
+     $map = array(1=>"prob1.tar",2=>"prob2.tar",3=>"prob3.tar");
      return $map[$newqid];
 }
+?>

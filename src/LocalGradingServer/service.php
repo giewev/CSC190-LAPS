@@ -1,9 +1,13 @@
 <?php
+	include_once("common.php");
 
 	$op =$_REQUEST["OP"];
-	if($OP == "login"){
+	if($op == "login"){
 		$uname=$_REQUEST["uname"];
 		$pwd=$_REQUEST["pwd"];
+		print($uname);
+		print($pwd);
+		
 		$val=login($uname,$pwd);
 		print($val);
 	}
