@@ -16,8 +16,8 @@
        <div class = "row">
 	  <div class = "col">
 	    User Name : <input type ="text" id = "username" name ="name"><br>
-	    Comment   : <input type ="text" id = "comment" name ="comment"><br>
-	    <button class = "btn btn-success" onclick="verify();"> Submit </button><br>
+	    Comment   : <input type ="text" id = "password" name ="comment"><br>
+	    <button class = "btn btn-success" onclick="verify();">Login </button><br>
           </div>
        </div>
     </div>
