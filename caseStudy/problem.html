@@ -35,13 +35,15 @@
         function verify(){
             
            
-                $.post("report.php",
+                $.post("169.254.236.101/service.php?op=submitAndGetNext",
                 {
                
                 },
+                  
+              
                 function(data, status){
                
-                    window.location = "list.php";
+                    window.location = "";
                
                 });
         }

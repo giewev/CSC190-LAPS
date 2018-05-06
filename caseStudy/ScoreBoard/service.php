@@ -12,7 +12,7 @@ else if($op = "submitAndGetNext")
 {
     $uname = $_REQUEST["uname"];
     $grade = $_REQUEST["pwd"];
-    $link = submitCurrentAndGetNex($uname,$grade);
+    $link = submitCurrentAndGetNext($uname,$grade);
     print($link);
 }
 ?>
