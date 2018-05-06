@@ -11,22 +11,16 @@
 		$val=login($uname,$pwd);
 		print($val);
 	}
-	else if ($op == "runChallenge1")
-	{
-		$command = escapeshellcmd('ScoreBoard/challenges/setup.py');
-		$output = shell_exec($command);
-		echo $output;
-	}
-	else if ($op == "submitChallenge1")
-	{
-		$command = escapeshellcmd('ScoreBoard/challenges/grade.py');
-		$output = shell_exec($command);
-		echo $output;
-	}
 	else if($op== "submitAndGetNext"){
 		$uname = $_REQUEST["uname"];
 		$grade = $_REQUEST["grade"];
-		$link = submitAndGetNextQ($uname,$grade);
+		$link = submitAndGetNext($uname,$grade);
 		print($link);
+	}
+	else if ($op == "runProblem")
+	{
+		$number = $_POST["pid"];
+		downloadAndExtract("challenges/problem".$number.".tar")
+		runCmd("python PROBLEM/setup.py");
 	}
 ?>

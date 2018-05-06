@@ -35,7 +35,7 @@
 			$cmd = "wget $url -o /var/www/html/LAPS/tmp/$link";
 			runCmd($cmd);
 			$cmd2 = "tar-xvf /var/www/html/LAPS/tmp/$link -c PROBLEM";  //chek -c
-	
+			runCmd($cmd);
 		}
 		function submitAndGetNext($uname){
 			global $Server, $PracImage;
