@@ -14,7 +14,7 @@
 	}
 
 
-	function noName(){
+	function noName(){				//chekc the name of the function
 
 		function login($uname , $pwd){
 			global $Server;
