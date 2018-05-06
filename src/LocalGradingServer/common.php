@@ -13,14 +13,10 @@
 		return $fileContent;
 	}
 
-
-	
 		function login($uname , $pwd){
 			print("llll");
 			$Server = "localhost/ScoreBoard/";
-			print("<br>".$Server);
 			$url = $Server."service.php?op=login&uname=$uname&pwd=$pwd"; // check
-			print("<br>".$url);
 			$res=submitRequest($url);
 			if($res != "ok")return $res; // chekc "ok"
 			
