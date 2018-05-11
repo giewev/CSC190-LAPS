@@ -14,6 +14,6 @@ CREATE TABLE tbl_scores(
 	score INT
 );
 
-INSERT INTO tbl_users (name, qid, score) VALUES ('John', '1', 'apple1!');
-INSERT INTO tbl_users (name, qid, score) VALUES ('Johny', '2', 'orange1!');
+INSERT INTO tbl_users (name, qid, pass) VALUES ('John', '1', 'apple1!');
+INSERT INTO tbl_users (name, qid, pass) VALUES ('Johny', '2', 'orange1!');
 INSERT INTO tbl_scores (uname, qid, score) VALUES ('Johnson', '4', '10');
