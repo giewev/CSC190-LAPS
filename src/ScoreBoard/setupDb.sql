@@ -3,7 +3,7 @@ use laps;
 
 drop table if exists users;
 create table users
-	( qid INT
+	( qid INT,
 	 name varchar(256),
 	 pass varchar(256));
 
