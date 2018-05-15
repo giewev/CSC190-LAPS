@@ -8,12 +8,12 @@ create table users
 	 pass varchar(256));
 
 
-CREATE TABLE tbl_scores(
+CREATE TABLE scores(
 	uname varchar(255),
 	qid INT,
 	score INT
 );
 
-INSERT INTO tbl_users (name, qid, pass) VALUES ('John', '1', 'apple1!');
-INSERT INTO tbl_users (name, qid, pass) VALUES ('Johny', '2', 'orange1!');
-INSERT INTO tbl_scores (uname, qid, score) VALUES ('John', '1', '10');
+INSERT INTO users (name, qid, pass) VALUES ('John', '1', 'apple1!');
+INSERT INTO users (name, qid, pass) VALUES ('Johny', '2', 'orange1!');
+INSERT INTO scores (uname, qid, score) VALUES ('John', '1', '10');
