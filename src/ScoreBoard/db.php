@@ -36,17 +36,17 @@
 
 	function check_password($usr, $pass)
 	{
-		$users = executeSQL("Select * from users where name = '".$usr."'");
+		$users = executeSQL("Select * from users where UPPER(name) = UPPER('".$usr."')");
 		if (count($users) != 1)
 		{
-			return "Bad";
+			return "Unknown User";
 		}
 		else if ($users[0]["pass"] == $pass)
 		{
 			return "Good";
 		}
 		else{
-			return "Bad";
+			return "Bad Password";
 		}
 	}
 

@@ -2,7 +2,7 @@
 include_once("common.php");
 include_once("db.php");
 $op = $_REQUEST["op"];
-if($op== "Login")
+if($op == "login")
 {
     $uname = $_REQUEST["uname"];
     $pwd = $_REQUEST["pwd"];
@@ -15,12 +15,18 @@ else if ($op == "register")
     $pwd = $_REQUEST["pwd"];
     $val = register($uname,$pwd);
 }
-else if($op == "submitAndGetNext")
+else if($op == "submitScore")
 {
     $uname = $_REQUEST["uname"];
-    $grade = $_REQUEST["pwd"];
+    $grade = $_REQUEST["score"];
     $link = submitCurrentAndGetNext($uname,$grade);
     print($link);
+}
+else if ($op == "currentProblem")
+{
+    $uname = $_REQUEST["uname"];
+    $qid = usersCurrentQid($uname);
+    print(qidToFileName($qid));
 }
 ?>
 

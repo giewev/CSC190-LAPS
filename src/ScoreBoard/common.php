@@ -1,19 +1,45 @@
 <?php
-function submitCurrentAndGetNext($uname,$grade)
+include_once("db.php");
+
+function submitScore($uname, $grade)
+{
+     $grade = secure($grade);
+     $uname = secure($uname);
+
+     $qid = usersCurrentQid($uname);
+     $insertScoreQuery = "INSERT INTO Scores(uname,qid,score) VALUES ('$uname','$qid','$grade');";
+     executeSQL($insertScoreQuery);
+
+     $newqid = ($qid+1) % 4;
+     setCurrentQid($newqid);
+}
+
+function setCurrentQid($uname, $newId)
 {
      $uname = secure($uname);
-     $grade = secure($grade);
+     $updateQuestionQuery = "UPDATE tbl_users SET qid = $newId WHERE uname = '$uname'";
+     executeSQL($updateQuestionQuery);
+}
+
+function usersCurrentQid($uname)
+{
+     $uname = secure($uname);
      $q = "SELECT qid FROM tbl_users WHERE uname = '$uname'";
      $arr = executeSQL($q);
-     $qid = $arr[0]["qid"];
-
-     $q2 = "INSERT INTO Scores(uname,qid,score) VALUES ('$UNAME','$QID','$grade');";
-     executeSQL($q2);
-     
-     $newqid = $qid+1;
-     $q3 = "UPDATE tbl_users SET qid = $newqid 	WHERE uname = '$uname'";
-
-     $map = array(1=>"prob1.tar",2=>"prob2.tar",3=>"prob3.tar");
-     return $map[$newqid];
+     return $arr[0]["qid"];
 }
+
+function qidToFileName($qid)
+{
+     if (array_key_exists($qid, $map))
+     {
+          $map = array(1 => "disableApache.tar", 2 => "insertFile.tar", 3 => "portScan.tar");
+          return $map[$newqid];
+     }
+     else 
+     {
+          return "restartProblem.tar";
+     }
+}
+
 ?>
