@@ -1,6 +1,6 @@
 import requests
 
-request = requests.get("http://www.google.com")
+request = requests.get("192.168.56.1")
 if "Apache" in request.headers['server']:
     print "10"
 else: 

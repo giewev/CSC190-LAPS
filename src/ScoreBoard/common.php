@@ -17,24 +17,24 @@ function submitScore($uname, $grade)
 function setCurrentQid($uname, $newId)
 {
      $uname = secure($uname);
-     $updateQuestionQuery = "UPDATE tbl_users SET qid = $newId WHERE uname = '$uname'";
+     $updateQuestionQuery = "UPDATE users SET qid = $newId WHERE name = '$uname'";
      executeSQL($updateQuestionQuery);
 }
 
 function usersCurrentQid($uname)
 {
      $uname = secure($uname);
-     $q = "SELECT qid FROM tbl_users WHERE uname = '$uname'";
+     $q = "SELECT qid FROM users WHERE name = '$uname'";
      $arr = executeSQL($q);
      return $arr[0]["qid"];
 }
 
 function qidToFileName($qid)
 {
+     $map = array(1 => "disableApache.tar", 2 => "insertFile.tar", 3 => "portScan.tar");
      if (array_key_exists($qid, $map))
      {
-          $map = array(1 => "disableApache.tar", 2 => "insertFile.tar", 3 => "portScan.tar");
-          return $map[$newqid];
+          return $map[$qid];
      }
      else 
      {
