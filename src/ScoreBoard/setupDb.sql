@@ -7,7 +7,7 @@ create table users
 	 name varchar(256),
 	 pass varchar(256));
 
-
+drop table if exists scores;
 CREATE TABLE scores(
 	uname varchar(255),
 	qid INT,

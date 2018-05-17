@@ -35,14 +35,14 @@
         function verify(){
             
            
-                $.post("169.254.236.102/service.php?op=submitAndGetNext",
+                $.post("/service.php?op=submit&uname=John",
                 {
                
                 },
         
                 function(data, status){
                
-                    window.location = "169.254.236.102/PROBLEM/problem.html";
+                    console.log(data);
                
                 });
         }
