@@ -1,26 +1,28 @@
 <?php
 	include_once("common.php");
 
-	$op =$_REQUEST["OP"];
+	$op = $_REQUEST["op"];
 	if($op == "login"){
 		$uname=$_REQUEST["uname"];
 		$pwd=$_REQUEST["pwd"];
-		print($uname);
-		print($pwd);
 		
 		$val=login($uname,$pwd);
 		print($val);
 	}
-	else if($op== "submitAndGetNext"){
+	else if($op== "submit"){
 		$uname = $_REQUEST["uname"];
-		$grade = $_REQUEST["grade"];
-		$link = submitAndGetNext($uname,$grade);
+		$link = submitScore($uname);
 		print($link);
+	}
+	else if ($op == "reset")
+	{
+		$uname = $_REQUEST["uname"];
+		resetUser($uname);
 	}
 	else if ($op == "runProblem")
 	{
 		$number = $_POST["pid"];
-		downloadAndExtract("challenges/problem".$number.".tar")
+		downloadAndExtract("challenges/problem".$number.".tar");
 		runCmd("python PROBLEM/setup.py");
 	}
 ?>

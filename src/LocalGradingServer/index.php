@@ -16,37 +16,38 @@
        <div class = "row">
 	  <div class = "col">
 	    User Name : <input type ="text" id = "username" name ="name"><br>
-	    Comment   : <input type ="text" id = "password" name ="comment"><br>
+	    Password   : <input type ="text" id = "password" name ="password"><br>
 	    <button class = "btn btn-success" onclick="verify();">Login </button><br>
           </div>
        </div>
     </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 <script>
 		function verify(){
-			var uname = $("#username").val();
-			var pwd = $("#comment").val();
+			var uname = document.getElementById("username").value;
+			var pwd = document.getElementById("password").value;
 			
 			    $.post("/service.php?op=login",
 			    {
 				uname: uname,
 				pwd: pwd 
 			    },
-			    function(data, status){				
-				if(data = "ok"){
-				    window.location = "/LAPS/problem/problem.html";
-				    location.reload();
+			    function(data, status){			
+			    console.log(data);	
+				if(data == "ok"){
+				    window.location.replace("/tmp/PROBLEM/problem.html");
+				    // location.reload();
 				}
 				else{
-					alert(" Error!! data : " +data);
+					alert(" Error!! data : " + data + "\nstatus: " + status);
 				}				
 			    });
 		}
 	</script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
 

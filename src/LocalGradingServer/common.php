@@ -14,29 +14,72 @@
 	}
 
 		function login($uname , $pwd){
-			print("llll");
-			$Server = "localhost/ScoreBoard/";
-			$url = $Server."service.php?op=login&uname=$uname&pwd=$pwd"; // check
-			$res=submitRequest($url);
-			if($res != "ok")return $res; // chekc "ok"
+			$Server = "http://192.168.56.3";
+			$url = $Server."/service.php?op=login&uname=$uname&pwd=$pwd";
+
+			$res = submitRequest($url);
+			if($res != "Good\n")
+			{
+				return $res;
+			}
 			
-			//call submitandgetnext()
-			submitAndGetNext($uname);
-			return "ok";			// check "ok"	
+			downloadAndRunCurrentProblem($uname);
+
+			return "ok";
+ 		}
+
+ 		function downloadAndRunCurrentProblem($uname)
+ 		{
+ 			$fileName = currentProblemFileName($uname);
+ 			downloadAndExtract($fileName);
+ 			runCmd("python tmp/PROBLEM/setup.py");
+ 		}
+
+ 		function currentProblemFileName($uname)
+ 		{
+ 			$Server = "http://192.168.56.3";
+			$url = $Server."/service.php?op=currentProblem&uname=$uname";
+
+			$fileName = submitRequest($url);
+			return $fileName;
  		}
 
 		function runCmd($cmd){
 			return exec($cmd); 	//given a string runs linux command and returns the output in  a string
 		}
 
-		function downloadAndExtract($link){
-			global $Server, $PracImg;
-			$url = $Server."DOWNLOAD/$link";
-			$cmd = "wget $url -o /var/www/html/LAPS/tmp/$link";
+		function downloadAndExtract($fileName){
+			$fileName = str_replace("\n", "",$fileName);
+			$Server = "http://192.168.56.3";
+			$url = $Server."/Problems/$fileName";
+
+			$cmd = "wget $url -O /var/www/html/tmp/$fileName";
 			runCmd($cmd);
-			$cmd2 = "tar-xvf /var/www/html/LAPS/tmp/$link -c PROBLEM";  //chek -c
-			runCmd($cmd);
+
+			$cmd2 = "rm -rf /var/www/html/tmp/PROBLEM && mkdir /var/www/html/tmp/PROBLEM -p && tar -xvf /var/www/html/tmp/$fileName -C /var/www/html/tmp/PROBLEM";
+			runCmd($cmd2);
+
+			$cmd3 = "mv /var/www/html/tmp/PROBLEM/*/* /var/www/html/tmp/PROBLEM/";
+			runCmd($cmd3);
 		}
+
+		function submitScore($uname){
+			$grade = runCmd("python tmp/PROBLEM/grade.py");
+			print($grade);
+			$url= "http://192.168.56.3/service.php?op=submitScore&uname=$uname&grade=$grade";
+			submitRequest($url);
+
+			downloadAndRunCurrentProblem($uname);
+		}
+
+		function resetUser($uname)
+		{
+			$url= "http://192.168.56.3/service.php?op=reset&uname=$uname";
+			submitRequest($url);
+
+			downloadAndRunCurrentProblem($uname);
+		}
+
 		function submitAndGetNext($uname){
 			global $Server, $PracImage;
 			mylog("step 1. getting grade \n");
