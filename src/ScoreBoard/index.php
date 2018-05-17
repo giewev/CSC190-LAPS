@@ -6,12 +6,28 @@ if (!$conn)
 	echo "Failed";
 }
 mysql_select_db("laps", $conn);
-$q = "select * from tbl_scores";
-$response = mysql_query($q, $conn);  
+
  ?>
  
 <!DOCTYPE html>  
  <html>  
+ <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
       <head>  
            <title>List PHP</title>  
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
@@ -21,33 +37,48 @@ $response = mysql_query($q, $conn);
            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
       </head>  
       <body>  
-           <br /><br />  
+            <br /><br />  
+            <table style="width:100%">
+            <tr>
+              <th>Username</th>
+              <th>Q1</th> 
+              <th>Q2</th>
+              <th>Total</th>
+            </tr>
        
-                          <?php  
-                          while($row = mysql_fetch_assoc($response))  
-                          {  
-				
+                          <?php
 
+                          $q = "select * from users";
+                          $response = mysql_query($q, $conn);
+                          while($userRow = mysql_fetch_assoc($response))  
+                          {
+                            $user = $userRow["name"];
 
+                            echo '<tr><td>'.$user.'</td>';
 
-                               echo ' 
+                            $q1Query = "select * from scores where uname = '$user' and qid = '1' order by score desc";
+                            $q1Score = mysql_fetch_assoc(mysql_query($q1Query, $conn))["score"];
+                            if ($q1Score == NULL)
+                            {
+                              $q1Score = 0;
+                            }
 
-				<div class="container">
-    				<br><br>
-    				  
-        				<div class="col-md-8">
-            				<div class="content-heading"><h4>Name : '.$row["uname"].' </h4></div>
-	    				<div class="content-heading"><h4>Question ID : '.$row["qid"].'</h4></div>
-					<div class="content-heading"><h4>Score : '.$row["score"].'</h4></div>
+                            echo '<td>'.$q1Score.'</td>';
 
-        				</div>
-    				  </div>
-				</div> 
-            
-                               ';  
-                          }  
-                          mysql_close($conn);
+                            $q2Query = "select * from scores where uname = '$user' and qid = '2' order by score desc";
+                            $q2Score = mysql_fetch_assoc(mysql_query($q2Query, $conn))["score"];
+                            if ($q2Score == NULL)
+                            {
+                              $q2Score = 0;
+                            }
+
+                            echo '<td>'.$q2Score.'</td>';
+                            echo '<td>'.($q1Score + $q2Score).'</td>';
+                          }
+                          echo '</tr>';
+
+                          
                           ?>  
-                      
+                      </table>
       </body>  
  </html>  

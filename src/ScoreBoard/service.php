@@ -18,9 +18,13 @@ else if ($op == "register")
 else if($op == "submitScore")
 {
     $uname = $_REQUEST["uname"];
-    $grade = $_REQUEST["score"];
-    $link = submitCurrentAndGetNext($uname,$grade);
-    print($link);
+    $grade = $_REQUEST["grade"];
+    $link = submitScore($uname,$grade);
+}
+else if ($op == "reset")
+{
+    $uname = $_REQUEST["uname"];
+    setCurrentQid($uname, 1);
 }
 else if ($op == "currentProblem")
 {

@@ -16,4 +16,3 @@ CREATE TABLE scores(
 
 INSERT INTO users (name, qid, pass) VALUES ('John', '1', 'apple1!');
 INSERT INTO users (name, qid, pass) VALUES ('Johny', '2', 'orange1!');
-INSERT INTO scores (uname, qid, score) VALUES ('John', '1', '10');

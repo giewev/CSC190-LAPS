@@ -5,13 +5,13 @@ function submitScore($uname, $grade)
 {
      $grade = secure($grade);
      $uname = secure($uname);
-
      $qid = usersCurrentQid($uname);
-     $insertScoreQuery = "INSERT INTO Scores(uname,qid,score) VALUES ('$uname','$qid','$grade');";
+
+     $insertScoreQuery = "INSERT INTO scores(uname,qid,score) VALUES ('$uname','$qid','$grade');";
      executeSQL($insertScoreQuery);
 
      $newqid = ($qid+1) % 4;
-     setCurrentQid($newqid);
+     setCurrentQid($uname, $newqid);
 }
 
 function setCurrentQid($uname, $newId)
@@ -31,7 +31,7 @@ function usersCurrentQid($uname)
 
 function qidToFileName($qid)
 {
-     $map = array(1 => "disableApache.tar", 2 => "insertFile.tar", 3 => "portScan.tar");
+     $map = array(1 => "disableApache.tar", 2 => "insertFile.tar");
      if (array_key_exists($qid, $map))
      {
           return $map[$qid];
